@@ -1,0 +1,740 @@
+  create database company;
+  use company;
+ create table company(compno int,name varchar(20),email varchar(20),address varchar(50))
+ desc company;
+
+mysql> desc employee;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| eno             | int         | NO   | PRI | NULL    |       |
+| ename           | varchar(20) | YES  |     | NULL    |       |
+| designation     | varchar(20) | YES  |     | NULL    |       |
+| salary          | float       | YES  |     | NULL    |       |
+| date_of_joining | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+mysql> insert into employee(eno,ename,designation,salary,date_of_joining)values(1,'mr.advait','assistant',53000,'23/4/2022');
+Query OK, 1 row affected (0.07 sec)
+mysql> insert into employee(eno,ename,designation,salary,date_of_joining)values(2,'mr.ram','assistant',53000,'25/4/2022');
+Query OK, 1 row affected (0.07 sec) 
+
+mysql> select * from employee;
++-----+-----------+-------------+--------+-----------------+
+| eno | ename     | designation | salary | date_of_joining |
++-----+-----------+-------------+--------+-----------------+
+|   1 | mr.advait | assistant   |  53000 | 23/4/2022       |
+|   2 | mr.ram    | assistant   |  53000 | 25/4/2022       |
+
++-----+-----------+-------------+--------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table employee add column email varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> alter table employee add column email varchar(20);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update employee set email='shru12@gamil.com'where eno=1;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+-----------+-------------+--------+-----------------+------------------+
+| eno | ename     | designation | salary | date_of_joining | email            |
++-----+-----------+-------------+--------+-----------------+------------------+
+|   1 | mr.advait | assistant   |  53000 | 23/4/2022       | shru12@gamil.com |
+|   2 | mr.ram    | assistant   |  53000 | 25/4/2022       | NULL             |
++-----+-----------+-------------+--------+-----------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> update employee set salary=salary+(salary*0.05);
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++-----+-----------+-------------+--------+-----------------+------------------+
+| eno | ename     | designation | salary | date_of_joining | email            |
++-----+-----------+-------------+--------+-----------------+------------------+
+|   1 | mr.advait | assistant   |  55650 | 23/4/2022       | shru12@gamil.com |
+|   2 | mr.ram    | assistant   |  55650 | 25/4/2022       | NULL             |
++-----+-----------+-------------+--------+-----------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> update employee set destination='sr.manager'where ename=mr.ram;
+ERROR 1054 (42S22): Unknown column 'mr.ram' in 'where clause'
+mysql> update employee set destination='sr.manager'where ename='mr.ram';
+ERROR 1054 (42S22): Unknown column 'destination' in 'field list'
+mysql> update employee set designation='sr.manager'where ename='mr.ram';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+   
+mysql> select * from employee;
++-----+-----------+-------------+--------+-----------------+------------------+
+| eno | ename     | designation | salary | date_of_joining | email            |
++-----+-----------+-------------+--------+-----------------+------------------+
+|   1 | mr.advait | assistant   |  55650 | 23/4/2022       | shru12@gamil.com |
+|   2 | mr.ram    | sr.manager  |  55650 | 25/4/2022       | NULL             |
++-----+-----------+-------------+--------+-----------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> update employee set city='pune'where eno=1;
+ERROR 1054 (42S22): Unknown column 'city' in 'field list'
+mysql> alter table employee add column city varchar(15);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+ 
+mysql> select * from employee;
++-----+-----------+-------------+--------+-----------------+------------------+------+
+| eno | ename     | designation | salary | date_of_joining | email            | city |
++-----+-----------+-------------+--------+-----------------+------------------+------+
+|   1 | mr.advait | assistant   |  55650 | 23/4/2022       | shru12@gamil.com | NULL |
+|   2 | mr.ram    | sr.manager  |  55650 | 25/4/2022       | NULL             | NULL |
++-----+-----------+-------------+--------+-----------------+------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> update employee set city='pune'where eno=1;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+-----------+-------------+--------+-----------------+------------------+------+
+| eno | ename     | designation | salary | date_of_joining | email            | city |
++-----+-----------+-------------+--------+-----------------+------------------+------+
+|   1 | mr.advait | assistant   |  55650 | 23/4/2022       | shru12@gamil.com | pune |
+|   2 | mr.ram    | sr.manager  |  55650 | 25/4/2022       | NULL             | NULL |
++-----+-----------+-------------+--------+-----------------+------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> update employee set city='mumbai'where eno=2;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+-----------+-------------+--------+-----------------+------------------+--------+
+| eno | ename     | designation | salary | date_of_joining | email            | city   |
++-----+-----------+-------------+--------+-----------------+------------------+--------+
+|   1 | mr.advait | assistant   |  55650 | 23/4/2022       | shru12@gamil.com | pune   |
+|   2 | mr.ram    | sr.manager  |  55650 | 25/4/2022       | NULL             | mumbai |
++-----+-----------+-------------+--------+-----------------+------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> update employee set salary=salary-(salary*0.05)where designation='sr.manager' and city='mumbai';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from employee;
++-----+-----------+-------------+---------+-----------------+------------------+--------+
+| eno | ename     | designation | salary  | date_of_joining | email            | city   |
++-----+-----------+-------------+---------+-----------------+------------------+--------+
+|   1 | mr.advait | assistant   |   55650 | 23/4/2022       | shru12@gamil.com | pune   |
+|   2 | mr.ram    | sr.manager  | 52867.5 | 25/4/2022       | NULL             | mumbai |
++-----+-----------+-------------+---------+-----------------+------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> alter table employee add column phone_no int not null;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-----+-----------+-------------+---------+-----------------+------------------+--------+----------+
+| eno | ename     | designation | salary  | date_of_joining | email            | city   | phone_no |
++-----+-----------+-------------+---------+-----------------+------------------+--------+----------+
+|   1 | mr.advait | assistant   |   55650 | 23/4/2022       | shru12@gmail.com | pune   |        0 |
+|   2 | mr.ram    | sr.manager  | 52867.5 | 25/4/2022       | NULL             | mumbai |        0 |
++-----+-----------+-------------+---------+-----------------+------------------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> update employee set phone_no int not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int not null' at line 1
+mysql> update employee set phone_no='123456543' where ename='mr.ram';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+| eno | ename     | designation | salary  | date_of_joining | email            | city   | phone_no  |
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+|   1 | mr.advait | assistant   |   55650 | 23/4/2022       | shru12@gmail.com | pune   |         0 |
+|   2 | mr.ram    | sr.manager  | 52867.5 | 25/4/2022       | NULL             Mumbai 123456543 |
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+2 rows in set (0.00 sec)
+
+
+select clouse
+mysql> alter table company add column evaluation varchar(20);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from company;
++--------+---------+----------+----------+------------+
+| compno | name    | email    | address  | evaluation |
++--------+---------+----------+----------+------------+
+|      1 | infosys | info@123 | pune     | NULL       |
+|      2 | tcs     | tcs@123  | benglore | NULL       |
+|      3 | wipro   | wi@923   | nagar    | NULL       |
++--------+---------+----------+----------+------------+
+mysql> update company set evaluation='10000cr'where compno=2;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update company set evaluation='9000cr'where compno=3;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from company;
++--------+---------+----------+----------+------------+
+| compno | name    | email    | address  | evaluation |
++--------+---------+----------+----------+------------+
+|      1 | infosys | info@123 | pune     | 1000cr     |
+|      2 | tcs     | tcs@123  | benglore | 10000cr    |
+|      3 | wipro   | wi@923   | nagar    | 9000cr     |
++--------+---------+----------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select *
+    -> from company
+    -> where name='tcs';
++--------+------+---------+----------+
+| compno | name | email   | address  |
++--------+------+---------+----------+
+|      2 | tcs  | tcs@123 | benglore |
++--------+------+---------+----------+
+> select distinct address
+    -> from company
+    -> where compno=2;
++----------+
+| address  |
++----------+
+| benglore |
+
+
+mysql> select * from employee where ename like '%m';
++-----+--------+-------------+---------+-----------------+-------+--------+-----------+
+| eno | ename  | designation | salary  | date_of_joining | email | city   | phone_no  |
++-----+--------+-------------+---------+-----------------+-------+--------+-----------+
+|   2 | mr.ram | sr.manager  | 52867.5 | 25/4/2022       | NULL  | mumbai | 123456543 |
++-----+--------+-------------+---------+-----------------+-------+--------+-----------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from employee where ename like '%t';
++-----+-----------+-------------+--------+-----------------+------------------+------+----------+
+| eno | ename     | designation | salary | date_of_joining | email            | city | phone_no |
++-----+-----------+-------------+--------+-----------------+------------------+------+----------+
+|   1 | mr.advait | assistant   |  55650 | 23/4/2022       | shru12@gmail.com | pune |        0 |
++-----+-----------+-------------+--------+-----------------+------------------+------+----------+
++----------+0
+
+
+       select ename from employee where ename like 'm%t' and designation='assistant' and city in('pune');
++-----------+
+| ename     |
++-----------+
+| mr.advait |
++-----------+
+1 row in set (0.00 sec)
+mysql> select ename from employee where email like('%.%') and (salary between 55000 and 56000) and eno in(1,2);
++-----------+
+| ename     |
++-----------+
+| mr.advait |
++-----------+
+
+mysql> select min(salary)
+    -> from employee;
++-------------+
+| min(salary) |
++-------------+
+|     52867.5 |
++-------------+
+> select Max(salary) as salaryMax
+    -> from employee as emp
+    -> where ename like '%1%' and date_of_joining='23/4/2022';
++-----------+
+| salaryMax |
++-----------+
+|      NULL |
++-----------+
+mysql> select count(eno), city from  employee group by  city having city='pune';
++------------+------+
+| count(eno) | city |
++------------+------+
+|          1 | pune |
++------------+------+
+mysql> select count(eno),designation from employee group by designation;
++------------+-------------+
+| count(eno) | designation |
++------------+-------------+
+|          1 | assistant   |
+|          1 | sr.manager  |
++------------+-------------+
+2 rows in set (0.06 sec)
+
+mysql> select count(designation)
+    -> from employee;
++--------------------+
+| count(designation) |
++--------------------+
+|                  2 |
++--------------------+
+1 row in set 
+
+mysql> select sum(salary)
+    -> from employee;
++-------------+
+| sum(salary) |
++-------------+
+|    108517.5 |
++-------------+
+  select * from employee where salary =(select max(salary)from employee);
++-----+-----------+-------------+--------+-----------------+------------------+------+----------+
+| eno | ename     | designation | salary | date_of_joining | email            select| city | phone_no |
++-----+-----------+-------------+--------+-----------------+------------------+------+----------+
+|   1 | mr.advait | assistant   |  55650 | 23/4/2022       | shru12@gamil.com | pune |        0 |
++-----+-----------+-------------+--------+-----------------+------------------+------+----------+
+
+
+
+
+mysql> select * from employee order by city desc;
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+| eno | ename     | designation | salary  | date_of_joining | email
+   | city   | phone_no  |
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+|   1 | mr.advait | assistant   |   55650 | 23/4/2022       | shru12@gamil.com | pune   |         0 |
+|   2 | mr.ram    | sr.manager  | 52867.5 | 25/4/2022       | NULL
+   | mumbai | 123456543 |
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+2 rows in set (0.06 sec)
+
+
+mysql> select * from employee order by city desc;
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+| eno | ename     | designation | salary  | date_of_joining | email
+   | city   | phone_no  |
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+|   1 | mr.advait | assistant   |   55650 | 23/4/2022       | shru12@gamil.com | pune   |         0 |
+|   2 | mr.ram    | sr.manager  | 52867.5 | 25/4/2022       | NULL
+   | mumbai | 123456543 |
++-----+-----------+-------------+---------+-----------------+------------------+--------+-----------+
+
+
+ use stud;
+Database changed
+ create table hospital(
+    -> hno int primary key,
+    -> hname varchar(20),
+    -> city varchar(20),
+    -> est_year numeric(4) check(est_year>1990),
+    -> addr varchar(20)
+    -> );
+ desc hospital;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| hno      | int          | NO   | PRI | NULL    |       |
+| hname    | varchar(20)  | YES  |     | NULL    |       |
+| city     | varchar(20)  | YES  |     | NULL    |       |
+| est_year | decimal(4,0) | YES  |     | NULL    |       |
+| addr     | varchar(20)  | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+ insert into hospital(hno,hname,city,est_year,addr)values(101,'pawar','rahuri','1992', 'manmad road');
+insert into hospital(hno,hname,city,est_year,addr)values(102,'sai','shirdi','1993', 'sai road');
+mysql> insert into hospital(hno,hname,city,est_year,addr)values(103,'haral','nagar','1997', 'nagar');
+ insert into hospital(hno,hname,city,est_year,addr)values(104,'tata','mumbai','1995', 'mumbai');
+mysql> select * from hospital;
++-----+-------+--------+----------+-------------+
+| hno | hname | city   | est_year | addr        |
++-----+-------+--------+----------+-------------+
+| 101 | pawar | rahuri |     1992 | manmad road |
+| 102 | sai   | shirdi |     1993 | sai road    |
+| 103 | haral | nagar  |     1997 | nagar       |
+| 104 | tata  | mumbai |     1995 | mumbai      |
++-----+-------+--------+----------+-------------+
+
+insert into doctor(dno,dname,addr1,speciality,hno)values(1,'dr.raj','pune','
+nuerosurgeon','105');
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(2,'dr.prem','banglo
+re','skin','106');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(3,'dr.rahul','nagar
+','orthopedic','108');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(4,'dr.ram','koprgao
+n','heart','110');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into doctor(dno,dname,addr1,speciality,hno)values(5,'dr.sitamahalkshmi','deswandi','psychiatrist','111');
+Query OK, 1 row affected (0.06 sec)
+mysql> select * from doctor;
++-----+-------------------+----------+--------------+------+
+| dno | dname             | addr1    | speciality   | hno  |
++-----+-------------------+----------+--------------+------+
+|   1 | dr.raj            | pune     | nuerosurgeon |  105 |
+|   2 | dr.prem           | banglore | skin         |  106 |
+|   3 | dr.rahul          | nagar    | orthopedic   |  108 |
+|   4 | dr.ram            | koprgaon | heart        |  110 |
+|   5 | dr.sitamahalkshmi | deswandi | psychiatrist |  111 |
++-----+-------------------+----------+--------------+------+
+5 rows in set (0.00 sec)
+mysql> select dname,hname,speciality from doctor,hospital where doctor.hno=hospital
+.hno and city='pune';
+Empty set (0.00 sec)
+
+mysql> create table customer(
+    -> cno int primary key,
+    -> cname varchar(20),
+    -> addr varchar(40),
+    -> city varchar(40)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> desc customer;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| cno   | int         | NO   | PRI | NULL    |       |
+| cname | varchar(20) | YES  |     | NULL    |       |
+| addr  | varchar(40) | YES  |     | NULL    |       |
+| city  | varchar(40) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> create table loan(
+    -> lno int primary key,
+    -> lamount float
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc loan;
++---------+-------+------+-----+---------+-------+
+| Field   | Type  | Null | Key | Default | Extra |
++---------+-------+------+-----+---------+-------+
+| lno     | int   | NO   | PRI | NULL    |       |
+| lamount | float | YES  |     | NULL    |       |
++---------+-------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+mysql> desc cust_loan;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cno     | int         | YES  |     | NULL    |       |
+| lno     | int         | YES  |     | NULL    |       |
+| lstatus | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> insert into customer(cno,cname,addr,city)values(1,'shruti','deswandi','rahuri');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customer(cno,cname,addr,city)values(2,'sandy','shilegaon','rahuri');
+Query OK, 1 row affected (0.06 sec
+mysql> insert into customer(cno,cname,addr,city)values(3,'sneha','b road','baramati');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into customer(cno,cname,addr,city)values(4,'samii','vidyapith','khadambe');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from customer;
++-----+--------+-----------+----------+
+| cno | cname  | addr      | city     |
++-----+--------+-----------+----------+
+|   1 | shruti | deswandi  | rahuri   |
+|   2 | sandy  | shilegaon | rahuri   |
+|   3 | sneha  | b road    | baramati |
+|   4 | samii  | vidyapith | khadambe |
++-----+--------+-----------+----------+
+
+mysql> insert into loan(lno,lamount)values(1,10000);
+Query OK, 1 row affected (0.06 sec)
+mysql> insert into loan(lno,lamount)values(2,11000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into loan(lno,lamount)values(3,12000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into loan(lno,lamount)values(4,200000);
+mysql> select * from loan;
++-----+---------+
+| lno | lamount |
++-----+---------+
+|   1 |   10000 |
+|   2 |   11000 |
+|   3 |   12000 |
+|   4 |  200000 |
++-----+---------+
+4 rows in set (0.00 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(1,1,'approve');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(2,2,'approve');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(3,3,'approve');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into cust_loan(cno,lno,lstatus)values(4,4,'rejected');
+Query OK, 1 row affected (0.06 sec)
+
+
+mysql> select * from cust_loan;
++------+------+----------+
+| cno  | lno  | lstatus  |
++------+------+----------+
+|    1 |    1 | approve  |
+|    2 |    2 | approve  |
+|    3 |    3 | approve  |
+|    4 |    4 | rejected |
++------+------+----------+
+
+mysql> select cname,addr,city from customer,loan,cust_loan where customer.cno=cust_loan.cno and loan.lno=cust_loan.lno and lamount<20000;
++--------+-----------+----------+
+| cname  | addr      | city     |
++--------+-----------+----------+
+| shruti | deswandi  | rahuri   |
+| sandy  | shilegaon | rahuri   |
+| sneha  | b road    | baramati |
++--------+-----------+----------+
+Database changed
+
+mysql> create table salesman(
+    -> salesman_id int primary key,
+    -> name varchar(20),
+    -> city varchar(20) not null,
+    -> commission float
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into salesman values(5001,'James hoog','New York',0.15);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into salesman values(5002,'Nail Knite','Paris',0.13);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman values(5005,'Pit Alex','London',0.11);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into salesman values(5006,'Mc Lyon','Paris',0.14);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into salesman values(5007,'Paul Adam','Rome',0.13);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into salesman values(5003,'Lauson Hen','San Jose',0.12);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into salesman values(5008,'Rose Willy','',0.17);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into salesman values(5009,'Lauson Hen','Itly',NULL);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> desc salesman;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| salesman_id | int         | NO   | PRI | NULL    |       |
+| name        | varchar(20) | YES  |     | NULL    |       |
+| city        | varchar(20) | NO   |     | NULL    |       |
+| commission  | float       | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from salesman;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5008 | Rose Willy |          |       0.17 |
+|        5009 | Lauson Hen | Itly     |       NULL |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select name,commission from salesman;
++------------+------------+
+| name       | commission |
++------------+------------+
+| James hoog |       0.15 |
+| Nail Knite |       0.13 |
+| Lauson Hen |       0.12 |
+| Pit Alex   |       0.11 |
+| Mc Lyon    |       0.14 |
+| Paul Adam  |       0.13 |
+| Rose Willy |       0.17 |
+| Lauson Hen |       NULL |
++------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select name,city from salesman where city='paris';
++------------+-------+
+| name       | city  |
++------------+-------+
+| Nail Knite | Paris |
+| Mc Lyon    | Paris |
++------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select name,city from salesman where city='San Jose';
++------------+----------+
+| name       | city     |
++------------+----------+
+| Lauson Hen | San Jose |
++------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select salesman_id,name,city from salesman;
++-------------+------------+----------+
+| salesman_id | name       | city     |
++-------------+------------+----------+
+|        5001 | James hoog | New York |
+|        5002 | Nail Knite | Paris    |
+|        5003 | Lauson Hen | San Jose |
+|        5005 | Pit Alex   | London   |
+|        5006 | Mc Lyon    | Paris    |
+|        5007 | Paul Adam  | Rome     |
+|        5008 | Rose Willy |          |
+|        5009 | Lauson Hen | Itly     |
++-------------+------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman order by name;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5009 | Lauson Hen | Itly     |       NULL |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5008 | Rose Willy |          |       0.17 |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman order by salesman_id;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5008 | Rose Willy |          |       0.17 |
+|        5009 | Lauson Hen | Itly     |       NULL |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman order by salesman_id desc;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5009 | Lauson Hen | Itly     |       NULL |
+|        5008 | Rose Willy |          |       0.17 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5001 | James hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('San Jose','Paris') order by salesman_id desc;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5002 | Nail Knite | Paris    |       0.13 |
++-------------+------------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('San Jose','Paris') order by salesman_id;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
++-------------+------------+----------+------------+
+
+mysql> select * from salesman where city in('San Jose','Paris') order by name desc;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5003 | Lauson Hen | San Jose |       0.12 |
++-------------+------------+----------+------------+
+3 rows in set (0.00 sec)
+3 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('Rome','London') order by salesman_id;
++-------------+-----------+--------+------------+
+| salesman_id | name      | city   | commission |
++-------------+-----------+--------+------------+
+|        5005 | Pit Alex  | London |       0.11 |
+|        5007 | Paul Adam | Rome   |       0.13 |
++-------------+-----------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where city in('New York','London') order by city;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5005 | Pit Alex   | London   |       0.11 |
+|        5001 | James hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from salesman where name in('James Hoog','Paul Adam') order by commission;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5001 | James hoog | New York |       0.15 |
++-------------+------------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select name,city from salesman where commission>0.12 ;
++------------+----------+
+| name       | city     |
++------------+----------+
+| James hoog | New York |
+| Nail Knite | Paris    |
+| Mc Lyon    | Paris    |
+| Paul Adam  | Rome     |
+| Rose Willy |          |
++------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman where commission>0.12 ;
++-------------+------------+----------+------------+
+| salesman_id | name       | city     | commission |
++-------------+------------+----------+------------+
+|        5001 | James hoog | New York |       0.15 |
+|        5002 | Nail Knite | Paris    |       0.13 |
+|        5006 | Mc Lyon    | Paris    |       0.14 |
+|        5007 | Paul Adam  | Rome     |       0.13 |
+|        5008 | Rose Willy |          |       0.17 |
++-------------+------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from salesman where city='';
++-------------+------------+------+------------+
+| salesman_id | name       | city | commission |
++-------------+------------+------+------------+
+|        5008 | Rose Willy |      |       0.17 |
++-------------+------------+------+------------+
+1 row in set (0.00 sec)
